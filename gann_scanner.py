@@ -65,6 +65,11 @@ STOCKS = [
     "BHARTIARTL.NS",
     "LT.NS",
     "TITAN.NS",
+    "DIXON.NS",
+    "POLYCAB.NS",
+    "AMBER.NS",
+    "CHOLA FINANCE",
+    "TRENT",
 ]
 
 # ═══════════════════════════════════════════════════════════
