@@ -1,0 +1,36 @@
+name: Daily Gann Scanner Update
+
+on:
+  schedule:
+    - cron: '30 3 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas requests
+
+      - name: Run Gann Scanner
+        run: python gann_scanner.py
+
+      - name: Rename output to index.html
+        run: mv WD_Gann_Dashboard.html index.html
+
+      - name: Commit and push updated dashboard
+        run: |
+          git config user.name "gann-bot"
+          git config user.email "gann-bot@users.noreply.github.com"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Auto update: $(date '+%d %b %Y %I:%M %p IST')"
+          git push
